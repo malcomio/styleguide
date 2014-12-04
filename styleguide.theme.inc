@@ -40,9 +40,12 @@ function theme_styleguide_header($variables) {
  */
 
 function theme_styleguide_item($variables) {
-  $key = $variables['key'];
-  $item = $variables['item'];
-  $content = $variables['content'];
+  dpm($variables);
+
+  return '';
+  $key = $variables['#key'];
+  $item = $variables['#item'];
+  $content = $variables['#content'];
   $output = '';
   $output .= "<a name=\"$key\"></a>";
   $output .= '<h2 class="styleguide">'. $item['title'] .'</h2>';

@@ -1,0 +1,8 @@
+<a name="{{ key }}"></a>
+<h2 class="styleguide">{{ key }}</h2>
+{% if description -%}
+  <p class="styleguide-description">
+  {{ description }}
+  </p>
+{%- endif %}
+<div class="styleguide">{{ content | raw }}</div>

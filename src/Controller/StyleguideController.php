@@ -21,9 +21,10 @@ class StyleguideController extends ControllerBase {
   public function styleguidePage() {
 
     // Get visual testing elements.
+
+    // TODO: investigate plugin instead of hook - Drupal\Core\Render\ElementInfoManager?
     $items = \Drupal::moduleHandler()->invokeAll('styleguide');
 
-    dpm($items);
     $build = array();
     foreach ($items as $item) {
       $build[] = $item;
