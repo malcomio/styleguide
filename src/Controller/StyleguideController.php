@@ -15,15 +15,19 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
 class StyleguideController extends ControllerBase {
 
 
+  /**
+   * Main page output for styleguide.
+   */
   public function styleguidePage() {
 
     // Get visual testing elements.
     $items = \Drupal::moduleHandler()->invokeAll('styleguide');
 
-    $build = array(
-      '#type' => 'markup',
-      '#markup' => t('Hello World!'),
-    );
+    dpm($items);
+    $build = array();
+    foreach ($items as $item) {
+      $build[] = $item;
+    }
 
     return $build;
   }
