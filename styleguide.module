@@ -21,36 +21,6 @@ function styleguide_help($path, $arg) {
 }
 
 /**
- * Implements hook_menu().
- */
-function styleguide_menu() {
-  $default = variable_get('theme_default', 'bartik');
-  $items['admin/appearance/styleguide'] = array(
-    'title' => 'Style guide',
-    'page callback' => 'styleguide_page',
-    'weight' => 40,
-    'access arguments' => array('view style guides'),
-    'theme callback' => '_styleguide_page_theme',
-    'theme arguments' => array($default),
-  );
-  foreach (list_themes() as $theme) {
-    $is_default = $theme->name == $default;
-    $items['admin/appearance/styleguide/' . $theme->name] = array(
-      'title' => $theme->info['name'],
-      'page callback' => 'styleguide_page',
-      'page arguments' => array($theme->name),
-      'type' => $is_default ? MENU_DEFAULT_LOCAL_TASK : MENU_LOCAL_TASK,
-      'access callback' => 'styleguide_access_check',
-      'access arguments' => array($theme),
-      'weight' => $is_default ? -10 : 0,
-      'theme callback' => '_styleguide_page_theme',
-      'theme arguments' => array($theme->name),
-    );
-  }
-  return $items;
-}
-
-/**
  * Implements hook_admin_paths().
  */
 function styleguide_admin_paths() {
@@ -109,13 +79,13 @@ function styleguide_permission() {
  * Menu access callback.
  */
 function styleguide_access_check($theme) {
-  if (!user_access('view style guides')) {
-    return FALSE;
-  }
-  if (drupal_theme_access($theme)) {
+//  if (!user_access('view style guides')) {
+//    return FALSE;
+//  }
+//  if (drupal_theme_access($theme)) {
     return TRUE;
-  }
-  return FALSE;
+//  }
+//  return FALSE;
 }
 
 /**
@@ -392,9 +362,9 @@ function styleguide_image($image = 'vertical', $type = 'jpg') {
  * Implements hook_system_theme_page_alter().
  */
 function styleguide_system_themes_page_alter(&$theme_groups) {
-  if (!user_access('view style guides')) {
-    return;
-  }
+//  if (!user_access('view style guides')) {
+//    return;
+//  }
   foreach ($theme_groups as $group => $members) {
     if (empty($group)) {
       continue;
