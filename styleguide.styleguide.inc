@@ -1,14 +1,16 @@
 <?php
 
+use Drupal\Core\Url;
+
 /**
  * Implements hook_styleguide().
  */
 function styleguide_styleguide() {
-  $current_url = request_path();
-  $items['a'] = array(
-    'title' => t('Link'),
-    'content' => styleguide_word(3, 'ucfirst') . ' ' . l(styleguide_word(3), 'node') . ' ' . styleguide_word(4) . '.',
-  );
+  $current_url = Url::fromRoute('styleguide.page');
+//  $items['a'] = array(
+//    'title' => t('Link'),
+//    'content' => styleguide_word(3, 'ucfirst') . ' ' . l(styleguide_word(3), 'node') . ' ' . styleguide_word(4) . '.',
+//  );
   $items['b'] = array(
     'title' => t('B'),
     'content' => styleguide_word(3, 'ucfirst') . ' <b>' . styleguide_word(3) . '</b> ' . styleguide_word(4) . '.',
@@ -122,16 +124,16 @@ function styleguide_styleguide() {
     ),
     'group' => t('Lists'),
   );
-  $items['menu_tree'] = array(
-    'title' => t('Menu tree'),
-    'content' => menu_tree('management'),
-    'group' => t('Menus'),
-  );
-  $items['menu_link'] = array(
-    'title' => t('Menu link'),
-    'content' => theme('menu_link', array('element' => styleguide_menu_item($current_url))),
-    'group' => t('Menus')
-  );
+//  $items['menu_tree'] = array(
+//    'title' => t('Menu tree'),
+//    'content' => menu_tree('management'),
+//    'group' => t('Menus'),
+//  );
+//  $items['menu_link'] = array(
+//    'title' => t('Menu link'),
+//    'content' => theme('menu_link', array('element' => styleguide_menu_item($current_url))),
+//    'group' => t('Menus')
+//  );
   $items['table'] = array(
     'title' => t('Table'),
     'theme' => 'table',
@@ -160,16 +162,16 @@ function styleguide_styleguide() {
     'variables' => array('path' => styleguide_image('vertical'), 'alt' => t('My image'), 'title' => t('My image')),
     'group' => t('Media'),
   );
-  $items['image-inset-horizontal'] = array(
-    'title' => t('Image, horizontal, within text'),
-    'content' => styleguide_paragraph(1) . theme('image', array('path' => styleguide_image('horizontal'), 'alt' => t('My image'), 'title' => t('My image'))) . styleguide_paragraph(2),
-    'group' => t('Media'),
-  );
-  $items['image-inset-vertical'] = array(
-    'title' => t('Image, vertical, within text'),
-    'content' => styleguide_paragraph(1) . theme('image', array('path' => styleguide_image('vertical'), 'alt' => t('My image'), 'title' => t('My image'))) . styleguide_paragraph(2),
-    'group' => t('Media'),
-  );
+//  $items['image-inset-horizontal'] = array(
+//    'title' => t('Image, horizontal, within text'),
+//    'content' => styleguide_paragraph(1) . theme('image', array('path' => styleguide_image('horizontal'), 'alt' => t('My image'), 'title' => t('My image'))) . styleguide_paragraph(2),
+//    'group' => t('Media'),
+//  );
+//  $items['image-inset-vertical'] = array(
+//    'title' => t('Image, vertical, within text'),
+//    'content' => styleguide_paragraph(1) . theme('image', array('path' => styleguide_image('vertical'), 'alt' => t('My image'), 'title' => t('My image'))) . styleguide_paragraph(2),
+//    'group' => t('Media'),
+//  );
   $content = '';
   for ($i = 1; $i <=6; $i++) {
     $content .= "<h$i>" . "h$i: " . implode(' ', styleguide_list()) . "</h$i>";
@@ -220,108 +222,108 @@ function styleguide_styleguide() {
       $basic[] = $key;
     }
   }
-  $items['form'] = array(
-    'title' => t('Forms, basic'),
-    'content' => drupal_get_form('styleguide_form', $basic),
-    'group' => t('Forms'),
-  );
-  $items['form-submit'] = array(
-    'title' => t('Forms, submit'),
-    'content' => drupal_get_form('styleguide_form', array('submit')),
-    'group' => t('Forms'),
-  );
-  $items['form-button'] = array(
-    'title' => t('Forms, button'),
-    'content' => drupal_get_form('styleguide_form', array('button')),
-    'group' => t('Forms'),
-  );
-  $items['form-image-button'] = array(
-    'title' => t('Forms, image button'),
-    'content' => drupal_get_form('styleguide_form', array('image_button')),
-    'group' => t('Forms'),
-  );
-  $items['form-markup'] = array(
-    'title' => t('Forms, markup'),
-    'content' => drupal_get_form('styleguide_form', $markup),
-    'group' => t('Forms'),
-  );
-  $items['form-fieldsets'] = array(
-    'title' => t('Forms, fieldsets'),
-    'content' => drupal_get_form('styleguide_form', $fieldsets),
-    'group' => t('Forms'),
-  );
-  $items['form-vertical-tabs'] = array(
-    'title' => t('Forms, vertical tabs'),
-    'content' => drupal_get_form('styleguide_form', $tabs),
-    'group' => t('Forms'),
-  );
-  $items['feed_icon'] = array(
-    'title' => t('Feed icon'),
-    'content' => theme('feed_icon', array('url' => url('rss.xml'), 'title' => t('Syndicate'))),
-    'group' => t('System')
-  );
-  // This item kills drupal_set_message. The messages are displayed here.
-  $items['maintenance_page'] = array(
-    'title' => t('Maintenance page'),
-    'content' => theme('maintenance_page', array('content' => styleguide_paragraph(2))),
-    'group' => t('System')
-  );
-  $items['system_powered_by'] = array(
-    'title' => t('System powered by'),
-    'content' => theme('system_powered_by'),
-    'group' => t('System')
-  );
-  $items['confirm_form'] = array(
-    'title' => t('Confirm form'),
-    'content' => drupal_get_form('confirm_form', array('path' => '')),
-    'group' => t('System')
-  );
+//  $items['form'] = array(
+//    'title' => t('Forms, basic'),
+//    'content' => drupal_get_form('styleguide_form', $basic),
+//    'group' => t('Forms'),
+//  );
+//  $items['form-submit'] = array(
+//    'title' => t('Forms, submit'),
+//    'content' => drupal_get_form('styleguide_form', array('submit')),
+//    'group' => t('Forms'),
+//  );
+//  $items['form-button'] = array(
+//    'title' => t('Forms, button'),
+//    'content' => drupal_get_form('styleguide_form', array('button')),
+//    'group' => t('Forms'),
+//  );
+//  $items['form-image-button'] = array(
+//    'title' => t('Forms, image button'),
+//    'content' => drupal_get_form('styleguide_form', array('image_button')),
+//    'group' => t('Forms'),
+//  );
+//  $items['form-markup'] = array(
+//    'title' => t('Forms, markup'),
+//    'content' => drupal_get_form('styleguide_form', $markup),
+//    'group' => t('Forms'),
+//  );
+//  $items['form-fieldsets'] = array(
+//    'title' => t('Forms, fieldsets'),
+//    'content' => drupal_get_form('styleguide_form', $fieldsets),
+//    'group' => t('Forms'),
+//  );
+//  $items['form-vertical-tabs'] = array(
+//    'title' => t('Forms, vertical tabs'),
+//    'content' => drupal_get_form('styleguide_form', $tabs),
+//    'group' => t('Forms'),
+//  );
+//  $items['feed_icon'] = array(
+//    'title' => t('Feed icon'),
+//    'content' => theme('feed_icon', array('url' => url('rss.xml'), 'title' => t('Syndicate'))),
+//    'group' => t('System')
+//  );
+//  // This item kills drupal_set_message. The messages are displayed here.
+//  $items['maintenance_page'] = array(
+//    'title' => t('Maintenance page'),
+//    'content' => theme('maintenance_page', array('content' => styleguide_paragraph(2))),
+//    'group' => t('System')
+//  );
+//  $items['system_powered_by'] = array(
+//    'title' => t('System powered by'),
+//    'content' => theme('system_powered_by'),
+//    'group' => t('System')
+//  );
+//  $items['confirm_form'] = array(
+//    'title' => t('Confirm form'),
+//    'content' => drupal_get_form('confirm_form', array('path' => '')),
+//    'group' => t('System')
+//  );
   $items['pager'] = array(
     'title' => t('Pager'),
     'content' => styleguide_pager(),
     'group' => t('User interface')
   );
-  $items['progress_bar'] = array(
-    'title' => t('Progress bar'),
-    'content' => theme('progress_bar', array('percent' => 57, 'message' => styleguide_sentence(2))),
-    'group' => t('User interface')
-  );
-  // Use alternative item name to avoid conflict with main breadcrumb.
-  $items['styleguide_breadcrumb'] = array(
-    'title' => t('Breadcrumb'),
-    'content' => theme('breadcrumb', array('breadcrumb' => drupal_get_breadcrumb())),
-    'group' => t('User interface')
-  );
+//  $items['progress_bar'] = array(
+//    'title' => t('Progress bar'),
+//    'content' => theme('progress_bar', array('percent' => 57, 'message' => styleguide_sentence(2))),
+//    'group' => t('User interface')
+//  );
+//  // Use alternative item name to avoid conflict with main breadcrumb.
+//  $items['styleguide_breadcrumb'] = array(
+//    'title' => t('Breadcrumb'),
+//    'content' => theme('breadcrumb', array('breadcrumb' => drupal_get_breadcrumb())),
+//    'group' => t('User interface')
+//  );
   $items['link'] = array(
     'title' => t('Link'),
-    'content' => l(styleguide_word(2), $current_url),
+    'content' => \Drupal::l(styleguide_word(2), $current_url),
     'group' => t('Link')
   );
-  $items['links'] = array(
-    'title' => t('Links'),
-    'content' => theme('links', array('links' => styleguide_links($current_url))),
-    'group' => t('Link')
-  );
-  $items['mark_new'] = array(
-    'title' => t('Mark, new'),
-    'content' => l(styleguide_sentence(), $current_url) . theme('mark', array('type' => MARK_NEW)),
-    'group' => t('Link')
-  );
-  $items['mark_updated'] = array(
-    'title' => t('Mark, updated'),
-    'content' => l(styleguide_sentence(), $current_url) . theme('mark', array('type' => MARK_UPDATED)),
-    'group' => t('Link')
-  );
-  $items['more_help_link'] = array(
-    'title' => t('More help link'),
-    'content' => styleguide_paragraph(1) . theme('more_help_link', array('url' => $current_url)),
-    'group' => t('Link')
-  );
-  $items['more_link'] = array(
-    'title' => t('More link'),
-    'content' => styleguide_paragraph(1) . theme('more_link', array('url' => $current_url, 'title' => styleguide_sentence())),
-    'group' => t('Link')
-  );
+//  $items['links'] = array(
+//    'title' => t('Links'),
+//    'content' => theme('links', array('links' => styleguide_links($current_url))),
+//    'group' => t('Link')
+//  );
+//  $items['mark_new'] = array(
+//    'title' => t('Mark, new'),
+//    'content' => \Drupal::l(styleguide_sentence(), $current_url) . theme('mark', array('type' => MARK_NEW)),
+//    'group' => t('Link')
+//  );
+//  $items['mark_updated'] = array(
+//    'title' => t('Mark, updated'),
+//    'content' => \Drupal::l(styleguide_sentence(), $current_url) . theme('mark', array('type' => MARK_UPDATED)),
+//    'group' => t('Link')
+//  );
+//  $items['more_help_link'] = array(
+//    'title' => t('More help link'),
+//    'content' => styleguide_paragraph(1) . theme('more_help_link', array('url' => $current_url)),
+//    'group' => t('Link')
+//  );
+//  $items['more_link'] = array(
+//    'title' => t('More link'),
+//    'content' => styleguide_paragraph(1) . theme('more_link', array('url' => $current_url, 'title' => styleguide_sentence())),
+//    'group' => t('Link')
+//  );
   $items['monospace'] = array(
     'title' => t('Monospace'),
     'content' => styleguide_lorem(1, 0, 'mixed', FALSE),

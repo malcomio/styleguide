@@ -588,9 +588,8 @@ function styleguide_pager($size = 8, $total = 20) {
   global $pager_page_array, $pager_total;
   $pager_page_array[1] = $size;
   $pager_total[1] = $total;
-  // For some reason, the pager breaks the page title.
-  drupal_set_title('Style guide');
-  return theme('pager', array('element' => 1));
+
+//  return theme('pager', array('element' => 1));
 }
 
 /**
