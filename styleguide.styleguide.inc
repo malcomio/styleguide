@@ -15,7 +15,6 @@ function styleguide_styleguide() {
 
   $items['b'] = array(
     '#theme' => 'styleguide_item',
-    '#theme' => 'styleguide_item',
     '#key' => t('B'),
     '#content' => styleguide_word(3, 'ucfirst') . ' <b>' . styleguide_word(3) . '</b> ' . styleguide_word(4) . '.',
   );
@@ -85,6 +84,9 @@ function styleguide_styleguide() {
     '#key' => t('Underline'),
     '#content' => styleguide_word(3, 'ucfirst') . ' <u>' . styleguide_word(3) . '</u> ' . styleguide_word(4) . '.',
   );
+
+
+  // TODO: not being output
   $items['ul'] = array(
     '#key' => t('Unordered list'),
     '#theme' => 'item_list',
@@ -94,6 +96,8 @@ function styleguide_styleguide() {
     ),
     '#group' => t('Lists'),
   );
+
+  // TODO: not being output
   $items['ol'] = array(
 
     '#key' => t('Ordered list'),
@@ -104,6 +108,8 @@ function styleguide_styleguide() {
     ),
     '#group' => t('Lists'),
   );
+
+  // TODO: not being output
   $items['ul_title'] = array(
     '#key' => t('Unordered list, with title'),
     '#theme' => 'item_list',
@@ -114,8 +120,10 @@ function styleguide_styleguide() {
     ),
     '#group' => t('Lists'),
   );
-  $items['ol_title'] = array(
 
+
+  // TODO: not being output
+  $items['ol_title'] = array(
     '#key' => t('Ordered list, with title'),
     '#theme' => 'item_list',
     'variables' => array(
@@ -125,6 +133,8 @@ function styleguide_styleguide() {
     ),
     '#group' => t('Lists'),
   );
+
+  // TODO: not being output
   $items['ul_long'] = array(
     '#key' => t('Unordered list with wrapped list items'),
     '#theme' => 'item_list',
@@ -134,6 +144,8 @@ function styleguide_styleguide() {
     ),
     '#group' => t('Lists'),
   );
+
+  // TODO: not being output
   $items['ol_long'] = array(
 // '#theme' => 'styleguide_item',
     '#key' => t('Ordered list with wrapped list items'),
@@ -145,6 +157,8 @@ function styleguide_styleguide() {
     ),
     '#group' => t('Lists'),
   );
+
+  // TODO: not being output
   $items['ul_links'] = array(
 // '  #theme' => 'styleguide_item',
     '#key' => t('Unordered list with links'),
@@ -155,6 +169,8 @@ function styleguide_styleguide() {
     ),
     '#group' => t('Lists'),
   );
+
+  // TODO: not being output
   $items['ul_links_inline'] = array(
 // '#theme' => 'styleguide_item',
     '#key' => t('Unordered inline list with links'),
@@ -186,6 +202,7 @@ function styleguide_styleguide() {
 //  );
 
 
+  // TODO: not being output
   $items['table'] = array(
 // '#theme' => 'styleguide_item',
     '#key' => t('Table'),
@@ -197,6 +214,8 @@ function styleguide_styleguide() {
     ),
     '#group' => t('Tables'),
   );
+
+
   $items['text'] = array(
     '#theme' => 'styleguide_item',
     '#key' => t('Text block'),
@@ -209,6 +228,8 @@ function styleguide_styleguide() {
     '#content' => styleguide_paragraph(1) . '<blockquote>' . styleguide_paragraph(1) . '</blockquote>' . styleguide_paragraph(1),
     '#group' => t('Text'),
   );
+
+  // TODO: not being output
   $items['image-horizontal'] = array(
     '#theme' => 'styleguide_item',
     '#key' => t('Image, horizontal'),
@@ -220,6 +241,8 @@ function styleguide_styleguide() {
     ),
     '#group' => t('Media'),
   );
+
+  // TODO: not being output
   $items['image-vertical'] = array(
     '#theme' => 'styleguide_item',
     '#key' => t('Image, vertical'),
@@ -246,7 +269,6 @@ function styleguide_styleguide() {
 //    '#content' => styleguide_paragraph(1) . theme('image', array('path' => styleguide_image('vertical'), 'alt' => t('My image'), '#key' => t('My image'))) . styleguide_paragraph(2),
 //    '#group' => t('Media'),
 //  );
-
 
 
   $content = '';
@@ -307,7 +329,6 @@ function styleguide_styleguide() {
       $basic[] = $key;
     }
   }
-
 
 
   // TODO: broken
@@ -372,15 +393,13 @@ function styleguide_styleguide() {
 //  );
 
 
-
-
-
+  // TODO: not being output
   $items['pager'] = array(
-    '#theme' => 'styleguide_item', //    '#key' => t('Pager'),
+    '#theme' => 'styleguide_item',
+    '#key' => t('Pager'),
     '#content' => styleguide_pager(),
     '#group' => t('User interface')
   );
-
 
 
   // TODO: broken
@@ -397,16 +416,12 @@ function styleguide_styleguide() {
 //  );
 
 
-
-
-
   $items['link'] = array(
-    '#theme' => 'styleguide_item', //    '#key' => t('Link'),
+    '#theme' => 'styleguide_item',
+    '#key' => t('Link'),
     '#content' => \Drupal::l(styleguide_word(2), $current_url),
     '#group' => t('Link')
   );
-
-
 
 
   // TODO: broken
@@ -440,12 +455,9 @@ function styleguide_styleguide() {
 //  );
 
 
-
-
-
-
   $items['monospace'] = array(
-    '#theme' => 'styleguide_item', //    '#key' => t('Monospace'),
+    '#theme' => 'styleguide_item',
+    '#key' => t('Monospace'),
     '#content' => styleguide_lorem(1, 0, 'mixed', FALSE),
     '#group' => t('Text'),
     '#tag' => 'code',
