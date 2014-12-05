@@ -431,13 +431,21 @@ function styleguide_styleguide() {
   );
 
 
+  $progress_bar = array(
+    '#theme' => 'progress_bar',
+    '#label' => styleguide_sentence(2),
+    '#percent' => 57,
+    '#message' => styleguide_sentence(2),
+  );
+  $items['progress_bar'] = array(
+    '#key' => 'progress_bar',
+    '#theme' => 'styleguide_item',
+    '#title' => t('Progress bar'),
+    '#content' => drupal_render_root($progress_bar),
+    '#group' => t('User interface')
+  );
+
   // TODO: broken
-//  $items['progress_bar'] = array(
-//    '#key' => 'progress_bar',
-// '#theme' => 'styleguide_item',//    '#title' => t('Progress bar'),
-//    '#content' => theme('progress_bar', array('percent' => 57, 'message' => styleguide_sentence(2))),
-//    '#group' => t('User interface')
-//  );
 //  // Use alternative item name to avoid conflict with main breadcrumb.
 //  $items['styleguide_breadcrumb'] = array(
 //    '#key' => 'styleguide_breadcrumb',
