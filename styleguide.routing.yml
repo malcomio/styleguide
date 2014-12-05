@@ -11,6 +11,8 @@ styleguide.page:
 
 styleguide.form:
   path: '/admin/appearance/styleguide/form'
+  options:
+    _admin_route: FALSE
   defaults:
     _form: '\Drupal\styleguide\Form\StyleguideForm'
     _title: 'Style guide'
