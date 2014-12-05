@@ -120,6 +120,7 @@ function styleguide_styleguide() {
   $ordered_list_long = array_merge($ordered_list, array('#items' => styleguide_list(3, 120)));
 
   $unordered_list_links = array_merge($item_list, array('#items' => styleguide_ul_links()));
+
   $ordered_list_links = array_merge($ordered_list, array('#items' => styleguide_ul_links()));
 
   $items['ul'] = array(
@@ -178,12 +179,12 @@ function styleguide_styleguide() {
     '#group' => t('Lists'),
   );
 
-//  // TODO: not being output
+  // TODO: are inline lists still valid in D8?
 //  $items['ul_links_inline'] = array(
 //    '#key' => 'ul_links_inline',
 //    '#title' => t('Unordered inline list with links'),
 //    '#theme' => 'styleguide_item',
-//    '#content' => drupal_render_root($ordered_list_links),
+//    '#content' => drupal_render_root($unordered_list_links_inline),
 //    '#group' => t('Lists'),
 //  );
 
@@ -204,18 +205,20 @@ function styleguide_styleguide() {
 //    '#group' => t('Menus')
 //  );
 
+  $table = array(
+    '#type' => 'table',
+    '#header' => styleguide_header(),
+    '#rows' => styleguide_rows(),
+    '#footer' => NULL,
+    '#attributes' => array(),
+    '#caption' => styleguide_word(3),
+  );
 
-  // TODO: not being output
   $items['table'] = array(
     '#key' => 'table',
-//    '#theme' => 'styleguide_item',
+    '#theme' => 'styleguide_item',
     '#title' => t('Table'),
-    '#theme' => 'table',
-    'variables' => array(
-      'caption' => styleguide_word(3),
-      'header' => styleguide_header(),
-      'rows' => styleguide_rows()
-    ),
+    '#content' => drupal_render_root($table),
     '#group' => t('Tables'),
   );
 
