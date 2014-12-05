@@ -7,8 +7,10 @@ use Drupal\Core\Url;
  */
 function styleguide_styleguide() {
   $current_url = Url::fromRoute('styleguide.page');
+
   $items['a'] = array(
     '#key' => 'a',
+    '#theme' => 'styleguide_item',
     '#title' => t('Link'),
     '#content' => styleguide_word(3, 'ucfirst') . ' ' . \Drupal::l(styleguide_word(3), $current_url) . ' ' . styleguide_word(4) . '.',
   );
