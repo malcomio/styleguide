@@ -18,7 +18,7 @@ function styleguide_help($route_name, RouteMatchInterface $route_match) {
       $output .= '<p>' . t('The Style Guide module creates a preview page for displaying common theme elements in all active themes for your Drupal site. The module comes with previews for common HTML elements, such as tables, forms, links and lists.') . '</p>';
 
       $styleguide_url = Url::fromRoute('styleguide.page');
-      $output .= '<p>' . t('You can preview the styleguide at !url', array('!url' => \Drupal::l(t('admin/appearance/styleguide'), $styleguide_url))) . '</p>';
+      $output .= '<p>' . t('You can preview the styleguide at !url', array('!url' => \Drupal::l(\Drupal::url('styleguide.page'), $styleguide_url))) . '</p>';
 
       break;
   }
