@@ -8,3 +8,11 @@ styleguide.page:
     _title: 'Style guide'
   requirements:
     _permission: 'view style guides'
+
+styleguide.form:
+  path: '/admin/appearance/styleguide/form'
+  defaults:
+    _form: '\Drupal\styleguide\Form\StyleguideForm'
+    _title: 'Style guide'
+  requirements:
+    _permission: 'access content'
