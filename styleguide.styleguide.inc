@@ -325,7 +325,9 @@ function styleguide_styleguide() {
   );
   $messages = array('status', 'warning', 'error');
   foreach ($messages as $message) {
-    $items[$message . '-message'] = array(
+    $key = $message . '-message';
+    $items[$key] = array(
+      '#key' => $key,
       '#theme' => 'styleguide_item',
       '#title' => ucwords($message) . ' message',
       '#content' => '<div class="messages ' . $message . '"><h2 class="element-invisible">Status message</h2>' . styleguide_sentence() . '</div>',
