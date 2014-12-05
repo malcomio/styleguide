@@ -99,55 +99,53 @@ function styleguide_styleguide() {
     '#content' => styleguide_word(3, 'ucfirst') . ' <u>' . styleguide_word(3) . '</u> ' . styleguide_word(4) . '.',
   );
 
+  $item_list = array(
+    '#theme' => 'item_list',
+    '#items' => styleguide_list(),
+  );
 
-  // TODO: not being output
+  $title = array(
+    '#title' => styleguide_word(3, 'ucfirst'),
+  );
+
+  $unordered_list_title = array_merge($item_list, $title);
+
+  $ordered_list = array_merge($item_list, array(
+    '#list_type' => 'ol',
+  ));
+
+  $ordered_list_title = array_merge($ordered_list, $title);
+  $unordered_list_long = array_merge($item_list, array('items' => styleguide_list(3, 120)));
+
   $items['ul'] = array(
     '#key' => 'ul',
     '#title' => t('Unordered list'),
-    '#theme' => 'item_list',
-    'variables' => array(
-      'items' => styleguide_list(),
-      'type' => 'ul'
-    ),
+    '#theme' => 'styleguide_item',
+    '#content' => drupal_render_root($item_list),
     '#group' => t('Lists'),
   );
 
-  // TODO: not being output
   $items['ol'] = array(
     '#key' => 'ol',
     '#title' => t('Ordered list'),
-    '#theme' => 'item_list',
-    'variables' => array(
-      'items' => styleguide_list(),
-      'type' => 'ol'
-    ),
+    '#theme' => 'styleguide_item',
+    '#content' => drupal_render_root($ordered_list),
     '#group' => t('Lists'),
   );
 
-  // TODO: not being output
   $items['ul_title'] = array(
     '#key' => 'ul_title',
     '#title' => t('Unordered list, with title'),
-    '#theme' => 'item_list',
-    'variables' => array(
-      'items' => styleguide_list(),
-      'type' => 'ul',
-      '#title' => styleguide_word(3, 'ucfirst')
-    ),
+    '#theme' => 'styleguide_item',
+    '#content' => drupal_render_root($unordered_list_title),
     '#group' => t('Lists'),
   );
 
-
-  // TODO: not being output
   $items['ol_title'] = array(
     '#key' => 'ol_title',
     '#title' => t('Ordered list, with title'),
-    '#theme' => 'item_list',
-    'variables' => array(
-      'items' => styleguide_list(),
-      'type' => 'ol',
-      '#title' => styleguide_word(3, 'ucfirst')
-    ),
+    '#theme' => 'styleguide_item',
+    '#content' => drupal_render_root($ordered_list_title),
     '#group' => t('Lists'),
   );
 
@@ -155,11 +153,8 @@ function styleguide_styleguide() {
   $items['ul_long'] = array(
     '#key' => 'ul_long',
     '#title' => t('Unordered list with wrapped list items'),
-    '#theme' => 'item_list',
-    'variables' => array(
-      'items' => styleguide_list(3, 120),
-      'type' => 'ul'
-    ),
+    '#theme' => 'styleguide_item',
+    '#content' => drupal_render_root($unordered_list_long),
     '#group' => t('Lists'),
   );
 
