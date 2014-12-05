@@ -1,6 +1,8 @@
 # Drupal 8 book.routing.yml snippet
 styleguide.page:
   path: 'admin/appearance/styleguide'
+  options:
+    _admin_route: FALSE
   defaults:
     _content: '\Drupal\styleguide\Controller\StyleguideController::styleguidePage'
     _title: 'Style guide'
