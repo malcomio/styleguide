@@ -45,7 +45,12 @@ function styleguide_theme($existing, $type, $theme, $path) {
       'variables' => array('items' => array()),
     ),
     'styleguide_item' => array(
-      'variables' => array('key' => NULL, 'item' => array(), 'content' => NULL),
+      'variables' => array(
+        'key' => NULL,
+        'title' => NULL,
+        'item' => array(),
+        'content' => NULL,
+      ),
     ),
     'styleguide_content' => array(
       'variables' => array('content' => NULL),
@@ -59,7 +64,7 @@ function styleguide_theme($existing, $type, $theme, $path) {
  */
 function styleguide_hook_info() {
   $hooks['styleguide'] = array(
-    'group' =>  'styleguide',
+    'group' => 'styleguide',
   );
   return $hooks;
 }
@@ -409,7 +414,7 @@ function styleguide_form($form, &$form_state, $form_keys = array()) {
     if ($value['#type'] != 'fieldset' && $value['#type'] != 'checkbox' && $count < 2) {
       $count++;
       foreach ($fieldsets as $item) {
-        $form[$item][$key . '-' .  $item] = $value;
+        $form[$item][$key . '-' . $item] = $value;
       }
     }
   }
@@ -504,7 +509,7 @@ function styleguide_links($url, $size = 4) {
 function styleguide_menu_item($url) {
   $menu_item = array(
     '#title' => styleguide_sentence(),
-    '#href' => $url, 
+    '#href' => $url,
     '#localized_options' => array(),
     '#attributes' => array(),
     '#below' => FALSE,
