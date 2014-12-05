@@ -239,16 +239,17 @@ function styleguide_styleguide() {
   );
 
   // TODO: not being output
+  $image = array(
+    '#theme' => 'image',
+    '#uri' => styleguide_image('horizontal'),
+    '#alt' => t('My image'),
+    '#title' => t('My image'),
+  );
   $items['image-horizontal'] = array(
     '#key' => 'image-horizontal',
     '#theme' => 'styleguide_item',
     '#title' => t('Image, horizontal'),
-    '#theme' => 'image',
-    'variables' => array(
-      'path' => styleguide_image('horizontal'),
-      'alt' => t('My image'),
-      '#title' => t('My image')
-    ),
+    '#content' => drupal_render_root($image),
     '#group' => t('Media'),
   );
 
