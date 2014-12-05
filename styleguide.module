@@ -1,35 +1,29 @@
 <?php
 
+use Drupal\Core\Url;
+use Drupal\Core\Routing\RouteMatchInterface;
+
 /**
  * Implements hook_help().
  */
-function styleguide_help($path, $arg) {
+function styleguide_help($route_name, RouteMatchInterface $route_match) {
   $output = '';
-  switch ($path) {
+  switch ($route_name) {
     // Main module help for the Style guide module.
-    case 'admin/help#styleguide':
+    case 'help.page.styleguide':
+
+
       $output .= '<p>' . t('Provides a visual testing page for Drupal themes. Quickly compare the display of common elements across your themes, and verify that your new theme addresses all common style elements.') . '</p>';
 
       $output .= '<p>' . t('The Style Guide module creates a preview page for displaying common theme elements in all active themes for your Drupal site. The module comes with previews for common HTML elements, such as tables, forms, links and lists.') . '</p>';
 
-      $output .= '<p>' . t('You can preview the styleguide at !url', array('!url' => l(t('admin/appearance/styleguide'), "admin/appearance/styleguide"))) . '</p>';
+      $styleguide_url = Url::fromRoute('styleguide.page');
+      $output .= '<p>' . t('You can preview the styleguide at !url', array('!url' => \Drupal::l(t('admin/appearance/styleguide'), $styleguide_url))) . '</p>';
 
       break;
   }
 
   return $output;
-}
-
-/**
- * Implements hook_admin_paths().
- */
-function styleguide_admin_paths() {
-  $paths = array(
-    'admin/appearance/styleguide' => FALSE,
-    'admin/appearance/styleguide/*' => FALSE,
-  );
-
-  return $paths;
 }
 
 /**
@@ -57,129 +51,7 @@ function styleguide_theme($existing, $type, $theme, $path) {
       'variables' => array('content' => NULL),
     ),
   );
-  foreach ($themes as $theme => $data) {
-    $themes[$theme]['file'] = 'styleguide.theme.inc';
-  }
   return $themes;
-}
-
-/**
- * Implements hook_permission().
- */
-function styleguide_permission() {
-  $permissions = array(
-    'view style guides' => array(
-      'title' => t('View theme style guides'),
-    )
-  );
-  return $permissions;
-}
-
-/**
- * Menu access callback.
- */
-function styleguide_access_check($theme) {
-//  if (!user_access('view style guides')) {
-//    return FALSE;
-//  }
-//  if (drupal_theme_access($theme)) {
-    return TRUE;
-//  }
-//  return FALSE;
-}
-
-/**
- * The styleguide page.
- */
-function styleguide_page($theme = NULL) {
-  // Get the path to the module for loading includes.
-  $path = drupal_get_path('module', 'styleguide');
-
-  // TODO: notice about the Overlay module?
-
-  // Check the theme.
-  if (is_null($theme)) {
-    $theme = variable_get('theme_default', 'bartik');
-  }
-
-  // Get theme data.
-  $themes = list_themes();
-  $active = $themes[$theme];
-
-  // Include modules for which we implement styleguides.
-  $modules = module_list();
-  foreach ($modules as $module) {
-    if (file_exists($path . '/modules/' . $module . '.inc')) {
-      include_once $path . '/modules/' . $module . '.inc';
-    }
-  }
-
-  // Get visual testing elements.
-  $items = module_invoke_all('styleguide');
-  drupal_alter('styleguide', $items);
-
-  // Get theme style information.
-  $theme_info = $active->info;
-  drupal_alter('styleguide_theme_info', $theme_info, $theme);
-
-  $groups = array();
-  foreach ($items as $key => $item) {
-    if (!isset($item['group'])) {
-      $item['group'] = t('Common');
-    }
-    else {
-      $item['group'] = t('@group', array('@group' => $item['group']));
-    }
-    $item['title'] = t('@title', array('@title' => $item['title']));
-    $groups[$item['group']][$key] = $item;
-  }
-  ksort($groups);
-  // Create a navigation header.
-  $header = array();
-  $head = '';
-  $content = '';
-  // Process the elements, by group.
-  foreach ($groups as $group => $elements) {
-    foreach ($elements as $key => $item) {
-      $display = '';
-      // Output a standard theme item.
-
-      if (isset($item['theme'])) {
-        $display = theme($item['theme'], $item['variables']);
-      }
-      // Output a standard HTML tag. In Drupal 7, the preference
-      // is to pass theme('html_tag') instead. This is kept for API
-      // compatibility with Drupal 6.
-      elseif (isset($item['tag']) && isset($item['content'])) {
-        if (empty($item['attributes'])) {
-          $display = '<' . $item['tag'] . '>' . $item['content'] . '</' . $item['tag'] . '>';
-        }
-        else {
-          $display = '<' . $item['tag'] . ' ' . drupal_attributes($item['attributes']) . '>' . $item['content'] . '</' . $item['tag'] . '>';
-        }
-      }
-      // Support a renderable array for content.
-      elseif (isset($item['content']) && is_array($item['content'])) {
-        $display = drupal_render($item['content']);
-      }
-      // Just print the provided content.
-      elseif (isset($item['content'])) {
-        $display = $item['content'];
-      }
-      // Add the content.
-      $content .= theme('styleguide_item', array('key' => $key, 'item' => $item, 'content' => $display));
-      // Prepare the header link.
-      $header[$group][] = l($item['title'], $_GET['q'], array('fragment' => $key));
-    }
-    $head .= theme('item_list', array('items' => $header[$group], 'title' => $group));
-  }
-  // Return the page.
-  $build = array();
-  $build['header']['#markup'] = theme('styleguide_header', array('theme_info' => $theme_info));
-  $build['navigation']['#markup']= theme('styleguide_links', array('items' => $head));
-  $build['content']['#markup'] = theme('styleguide_content', array('content' => $content));
-  $build['content']['#attached']['css'][] = $path . '/styleguide.css';
-  return $build;
 }
 
 /**
@@ -195,9 +67,12 @@ function styleguide_hook_info() {
 /**
  * Return a simple array of words.
  *
- * @param $size
+ * @param int $size
  *   The size of the list to return.
- * @return
+ * @param int $words
+ *   The number of words per list item.
+ *
+ * @return array
  *   An array of words.
  */
 function styleguide_list($size = 5, $words = 3) {
@@ -362,20 +237,25 @@ function styleguide_image($image = 'vertical', $type = 'jpg') {
  * Implements hook_system_theme_page_alter().
  */
 function styleguide_system_themes_page_alter(&$theme_groups) {
-//  if (!user_access('view style guides')) {
-//    return;
-//  }
+  if (\Drupal::currentUser()->hasPermission('view style guides')) {
+    return;
+  }
+
   foreach ($theme_groups as $group => $members) {
     if (empty($group)) {
       continue;
     }
     foreach ($members as $key => $theme) {
-      if (!styleguide_access_check($theme)) {
+      if (!empty($theme->operations[1])) {
+        $machine_name = $theme->operations[1]['query']['theme'];
+      }
+
+      if (!styleguide_access_check($theme) || empty($machine_name)) {
         continue;
       }
       $theme_groups[$group][$key]->operations[] = array(
         'title' => t('Style guide'),
-        'href' => 'admin/appearance/styleguide/' . $theme->name,
+        'href' => 'admin/appearance/styleguide/' . $machine_name,
         'attributes' => array('title' => t('Style guide for @theme', array('@theme' => $theme->info['name']))),
       );
     }
