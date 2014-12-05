@@ -170,15 +170,14 @@ function styleguide_styleguide() {
     '#group' => t('Lists'),
   );
 
-//  // TODO: not being output
-//  $items['ul_links'] = array(
-//    '#key' => 'ul_links',
-//    '#title' => t('Unordered list with links'),
-//    '#theme' => 'styleguide_item',
-//    '#content' => drupal_render_root($unordered_list_links),
-//    '#group' => t('Lists'),
-//  );
-//
+  $items['ul_links'] = array(
+    '#key' => 'ul_links',
+    '#title' => t('Unordered list with links'),
+    '#theme' => 'styleguide_item',
+    '#content' => drupal_render_root($unordered_list_links),
+    '#group' => t('Lists'),
+  );
+
 //  // TODO: not being output
 //  $items['ul_links_inline'] = array(
 //    '#key' => 'ul_links_inline',

@@ -490,6 +490,12 @@ function styleguide_pager($size = 8, $total = 20) {
 function styleguide_links($url, $size = 4) {
   $links = array();
   for ($i = 0; $i < 5; $i++) {
+
+    $link_output = array(
+      '#markup' => \Drupal::l($item['#key'], $url),
+    );
+
+
     $links[] = array(
       'title' => styleguide_word(3),
       'href' => $url,
@@ -522,14 +528,14 @@ function styleguide_menu_item($url) {
  */
 function styleguide_ul_links() {
   $links = array();
+  $url = Url::fromRoute('styleguide.page', array(), array(
+    'fragment' => 'ul_links',
+  ));
 
   for ($i = 0; $i <= 10; $i++) {
     $word = styleguide_word();
-    $links[$word] = array(
-      'title' => $word,
-      'href' => current_path(),
-      'fragment' => 'ul_links',
-    );
+
+    $links[$word] = \Drupal::l($word, $url);
   }
 
   return $links;
