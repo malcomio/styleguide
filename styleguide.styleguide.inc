@@ -115,7 +115,12 @@ function styleguide_styleguide() {
   ));
 
   $ordered_list_title = array_merge($ordered_list, $title);
-  $unordered_list_long = array_merge($item_list, array('items' => styleguide_list(3, 120)));
+
+  $unordered_list_long = array_merge($item_list, array('#items' => styleguide_list(3, 120)));
+  $ordered_list_long = array_merge($ordered_list, array('#items' => styleguide_list(3, 120)));
+
+  $unordered_list_links = array_merge($item_list, array('#items' => styleguide_ul_links()));
+  $ordered_list_links = array_merge($ordered_list, array('#items' => styleguide_ul_links()));
 
   $items['ul'] = array(
     '#key' => 'ul',
@@ -149,7 +154,6 @@ function styleguide_styleguide() {
     '#group' => t('Lists'),
   );
 
-  // TODO: not being output
   $items['ul_long'] = array(
     '#key' => 'ul_long',
     '#title' => t('Unordered list with wrapped list items'),
@@ -158,49 +162,31 @@ function styleguide_styleguide() {
     '#group' => t('Lists'),
   );
 
-  // TODO: not being output
   $items['ol_long'] = array(
     '#key' => 'ol_long',
-// '#theme' => 'styleguide_item',
     '#title' => t('Ordered list with wrapped list items'),
-    '#theme' => 'item_list',
-    'variables' => array(
-      '#theme' => 'styleguide_item',
-      'items' => styleguide_list(3, 120),
-      'type' => 'ol'
-    ),
+    '#theme' => 'styleguide_item',
+    '#content' => drupal_render_root($ordered_list_long),
     '#group' => t('Lists'),
   );
 
-  // TODO: not being output
-  $items['ul_links'] = array(
-    '#key' => 'ul_links',
-    '#theme' => 'styleguide_item',
-    '#title' => t('Unordered list with links'),
-    '#theme' => 'links',
-    'variables' => array(
-      '#theme' => 'styleguide_item',
-      'links' => styleguide_ul_links(),
-    ),
-    '#group' => t('Lists'),
-  );
-
-  // TODO: not being output
-  $items['ul_links_inline'] = array(
-    '#key' => 'ul_links_inline',
-    '#theme' => 'styleguide_item',
-    '#title' => t('Unordered inline list with links'),
-    '#theme' => 'links',
-    'variables' => array(
-      'links' => styleguide_ul_links(),
-      'attributes' => array(
-        'class' => array(
-          'inline',
-        ),
-      ),
-    ),
-    '#group' => t('Lists'),
-  );
+//  // TODO: not being output
+//  $items['ul_links'] = array(
+//    '#key' => 'ul_links',
+//    '#title' => t('Unordered list with links'),
+//    '#theme' => 'styleguide_item',
+//    '#content' => drupal_render_root($unordered_list_links),
+//    '#group' => t('Lists'),
+//  );
+//
+//  // TODO: not being output
+//  $items['ul_links_inline'] = array(
+//    '#key' => 'ul_links_inline',
+//    '#title' => t('Unordered inline list with links'),
+//    '#theme' => 'styleguide_item',
+//    '#content' => drupal_render_root($ordered_list_links),
+//    '#group' => t('Lists'),
+//  );
 
 
   // TODO: rebuild broken theme() and menu_tree() calls.
