@@ -496,9 +496,8 @@ function styleguide_styleguide() {
     '#key' => 'monospace',
     '#theme' => 'styleguide_item',
     '#title' => t('Monospace'),
-    '#content' => styleguide_lorem(1, 0, 'mixed', FALSE),
+    '#content' => '<code>' . styleguide_lorem(1, 0, 'mixed', FALSE) . '</code>',
     '#group' => t('Text'),
-    '#tag' => 'code',
   );
 
   return $items;
